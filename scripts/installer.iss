@@ -28,7 +28,7 @@ OutputDir=output
 OutputBaseFilename=SystemeExpertDroitNumerique_Setup_v{#MyAppVersion}
 
 ; Icône de l'installateur
-SetupIconFile=icon.ico
+;SetupIconFile=icon.ico
 
 ; Compression
 Compression=lzma2
@@ -53,19 +53,18 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 ; Exécutable principal
-Source: "dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Documentation
-Source: "docs\README.md"; DestDir: "{app}\docs"; Flags: ignoreversion
-Source: "docs\INSTALLATION.md"; DestDir: "{app}\docs"; Flags: ignoreversion
-Source: "docs\QUICKSTART.md"; DestDir: "{app}\docs"; Flags: ignoreversion
+Source: "..\README.md"; DestDir: "{app}\docs"; Flags: ignoreversion
+Source: "..\docs\INSTALLATION.md"; DestDir: "{app}\docs"; Flags: ignoreversion
 
 ; Icône
-Source: "icon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "icon.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\icon.png"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Fichier de version
-Source: "VERSION.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\VERSION.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Ne pas utiliser "Flags: ignoreversion" sur des fichiers partagés système
 

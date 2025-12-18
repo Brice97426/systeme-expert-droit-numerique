@@ -2,6 +2,7 @@
 Script de build automatisé pour le Système Expert Droit du Numérique
 """
 
+import cmd
 import os
 import sys
 import shutil
@@ -88,22 +89,25 @@ def clean_build_directories():
 def build_application():
     """Compile l'application avec PyInstaller"""
     print_step("Compilation avec PyInstaller")
-    
-    # Utiliser le fichier .spec
-    cmd = ['pyinstaller', 'legal_expert.spec']
-    
+
+    cmd = [
+        sys.executable,
+        '-m',
+        'PyInstaller',
+        'legal_expert.spec'
+    ]
+
     print(f"Commande : {' '.join(cmd)}")
     print("\nCompilation en cours...\n")
-    
+
     try:
-        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
-        print(result.stdout)
+        subprocess.run(cmd, check=True)
         print("✅ Compilation réussie !")
         return True
-    except subprocess.CalledProcessError as e:
-        print("❌ Erreur lors de la compilation :")
-        print(e.stderr)
+    except subprocess.CalledProcessError:
+        print("❌ Erreur lors de la compilation (voir logs ci-dessus)")
         return False
+
 
 def verify_build():
     """Vérifie que le build a réussi"""
