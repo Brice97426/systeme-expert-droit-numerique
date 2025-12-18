@@ -2,7 +2,6 @@
 Script de build automatisé pour le Système Expert Droit du Numérique
 """
 
-import cmd
 import os
 import sys
 import shutil
@@ -48,8 +47,8 @@ def check_project_structure():
     files_required = {
         'main.py': 'Script principal',
         'index.html': 'Interface web',
-        'legal_expert.spec': 'Configuration PyInstaller',
-        'data/legal_expert_system_kb.json': 'Base de connaissances'
+        'data/legal_expert_system_kb.json': 'Base de connaissances',
+        'requirements.txt': 'Fichier de dépendances'
     }
     
     all_present = True
@@ -58,12 +57,12 @@ def check_project_structure():
             all_present = False
     
     # Vérifier l'icône (optionnel)
-    if not Path('icon.ico').exists():
-        print("⚠️  Icône non trouvée : icon.ico")
+    if not Path('icon.ico').exists() and not Path('icon.png').exists():
+        print("⚠️  Icône non trouvée : icon.ico / icon.png")
         print("   L'application sera compilée sans icône personnalisée")
-        print("   Exécutez 'python create_icon.py' pour en créer une")
+        print("   Exécutez 'python scripts/create_icon.py' pour en créer une")
     else:
-        print("✅ Icône trouvée : icon.ico")
+        print("✅ Icône trouvée")
     
     return all_present
 
@@ -78,9 +77,9 @@ def clean_build_directories():
             print(f"🗑️  Suppression de {dir_name}/")
             shutil.rmtree(dir_name)
     
-    # Supprimer les fichiers .spec générés automatiquement
+    # Supprimer les fichiers .spec générés automatiquement (sauf le principal)
     for spec_file in Path('.').glob('*.spec'):
-        if spec_file.name != 'legal_expert.spec':
+        if spec_file.name != 'SystemeExpertDroitNumerique.spec':
             print(f"🗑️  Suppression de {spec_file}")
             spec_file.unlink()
     
@@ -90,24 +89,62 @@ def build_application():
     """Compile l'application avec PyInstaller"""
     print_step("Compilation avec PyInstaller")
 
-    cmd = [
-        sys.executable,
-        '-m',
-        'PyInstaller',
-        'legal_expert.spec'
-    ]
+    # Vérifier si un fichier .spec existe
+    spec_file = Path('SystemeExpertDroitNumerique.spec')
+    
+    if spec_file.exists():
+        # Utiliser le fichier .spec s'il existe
+        print(f"📋 Utilisation du fichier de configuration : {spec_file}")
+        cmd = [
+            sys.executable,
+            '-m',
+            'PyInstaller',
+            str(spec_file),
+            '--clean',
+            '--noconfirm'
+        ]
+    else:
+        # Sinon, compilation directe avec options
+        print("📋 Compilation directe (pas de fichier .spec)")
+        
+        # Déterminer l'icône à utiliser
+        icon_arg = []
+        if Path('icon.ico').exists():
+            icon_arg = ['--icon=icon.ico']
+        elif Path('icon.png').exists():
+            icon_arg = ['--icon=icon.png']
+
+        # Séparateur pour add-data selon la plateforme
+        separator = ';' if sys.platform == 'win32' else ':'
+
+        # Commande PyInstaller
+        cmd = [
+            sys.executable,
+            '-m',
+            'PyInstaller',
+            '--onefile',
+            '--windowed',
+            '--name=SystemeExpertDroitNumerique',
+            f'--add-data=data/legal_expert_system_kb.json{separator}data',
+            f'--add-data=index.html{separator}.',
+            '--clean',
+            '--noconfirm'
+        ] + icon_arg + ['main.py']
 
     print(f"Commande : {' '.join(cmd)}")
     print("\nCompilation en cours...\n")
 
     try:
-        subprocess.run(cmd, check=True)
-        print("✅ Compilation réussie !")
+        result = subprocess.run(cmd, check=True, capture_output=False)
+        print("\n✅ Compilation réussie !")
         return True
-    except subprocess.CalledProcessError:
-        print("❌ Erreur lors de la compilation (voir logs ci-dessus)")
+    except subprocess.CalledProcessError as e:
+        print(f"\n❌ Erreur lors de la compilation (code: {e.returncode})")
+        print("Consultez les logs ci-dessus pour plus de détails")
         return False
-
+    except Exception as e:
+        print(f"\n❌ Erreur inattendue : {str(e)}")
+        return False
 
 def verify_build():
     """Vérifie que le build a réussi"""
@@ -154,21 +191,47 @@ def create_release_package():
         print(f"✅ Exécutable copié dans release/")
     
     # Copier la documentation
-    docs = ['README.md', 'INSTALLATION.md']
+    docs = ['README.md', 'LICENSE', 'CHANGELOG.md']
     for doc in docs:
         if Path(doc).exists():
             shutil.copy2(doc, release_dir / doc)
             print(f"✅ {doc} copié")
+    
+    # Copier la documentation du dossier docs
+    docs_folder = Path('docs')
+    if docs_folder.exists():
+        release_docs = release_dir / 'docs'
+        release_docs.mkdir(exist_ok=True)
+        for doc_file in docs_folder.glob('*.md'):
+            shutil.copy2(doc_file, release_docs / doc_file.name)
+            print(f"✅ docs/{doc_file.name} copié")
+    
+    # Copier l'icône si présente
+    for icon_file in ['icon.ico', 'icon.png']:
+        if Path(icon_file).exists():
+            shutil.copy2(icon_file, release_dir / icon_file)
+            print(f"✅ {icon_file} copié")
     
     # Créer un fichier VERSION
     version_file = release_dir / 'VERSION.txt'
     with open(version_file, 'w', encoding='utf-8') as f:
         f.write("Système Expert - Droit du Numérique\n")
         f.write("Version 1.0.0\n")
-        f.write("Date : 2024-12-16\n")
+        f.write("Date : 2024-12-18\n")
+        f.write("\nFichiers inclus :\n")
+        f.write(f"  - {exe_name}\n")
+        f.write("  - README.md\n")
+        f.write("  - LICENSE\n")
+        f.write("  - CHANGELOG.md\n")
+        f.write("  - docs/ (documentation complète)\n")
     print(f"✅ VERSION.txt créé")
     
     print(f"\n📦 Package créé dans : {release_dir.absolute()}")
+    print(f"\n📋 Contenu du package :")
+    for item in release_dir.rglob('*'):
+        if item.is_file():
+            size = item.stat().st_size / 1024
+            print(f"   - {item.relative_to(release_dir)} ({size:.2f} KB)")
 
 def main():
     """Fonction principale"""
