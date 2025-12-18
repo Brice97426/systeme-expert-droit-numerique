@@ -5,7 +5,7 @@
 #define MyAppName "Système Expert - Droit du Numérique"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Système Expert Académique"
-#define MyAppURL "https://github.com/votre-repo"
+#define MyAppURL "https://github.com/Brice97426/systeme-expert-droit-numerique"
 #define MyAppExeName "SystemeExpertDroitNumerique.exe"
 
 [Setup]
