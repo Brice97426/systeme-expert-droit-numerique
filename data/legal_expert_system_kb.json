@@ -1,0 +1,1043 @@
+{
+  "metadata": {
+    "nom": "Système Expert - Droit du Numérique",
+    "version": "1.0.0",
+    "date_creation": "2025-12-16",
+    "derniere_mise_a_jour": "2025-12-18",
+    "domaine": "Droit",
+    "sous_domaine": "Droit du numérique / nouvelles technologies",
+    "pays": "France",
+    "auteur": "Système Expert Académique",
+    "description": "Aide à la décision en matière de droit du numérique pour étudiants",
+    "type_raisonnement": "chainage_avant",
+    "nombre_regles": 13,
+    "nombre_criteres": 12,
+    "nombre_decisions": 12
+  },
+  "avertissement": {
+    "titre": "⚠️ Avertissement Important",
+    "message": "Ce système expert ne remplace pas un spécialiste du droit. Les informations fournies sont indicatives et destinées à l'orientation académique. Pour toute situation juridique concrète, consultez un avocat spécialisé en droit du numérique. Les lois évoluent régulièrement et ce système peut ne pas refléter les dernières modifications législatives.",
+    "niveau_risque": "informatif",
+    "afficher_systematiquement": true
+  },
+  "criteres": [
+    {
+      "id": "C1",
+      "code": "donnees_personnelles",
+      "question": "Le cas implique-t-il le traitement de données personnelles ?",
+      "type": "boolean",
+      "obligatoire": true,
+      "aide": "Données permettant d'identifier directement ou indirectement une personne physique (nom, prénom, email, adresse IP, cookies, etc.)",
+      "exemples": [
+        "Collecte d'emails pour newsletter",
+        "Suivi par cookies analytiques",
+        "Fichier clients avec coordonnées",
+        "Données de connexion (logs, IP)"
+      ],
+      "categorie": "RGPD"
+    },
+    {
+      "id": "C2",
+      "code": "consentement",
+      "question": "Le consentement des personnes concernées a-t-il été obtenu ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C1 == true",
+      "aide": "Consentement libre, éclairé, spécifique et univoque au sens du RGPD (Article 4)",
+      "exemples": [
+        "Case à cocher non pré-cochée",
+        "Formulaire avec opt-in explicite",
+        "Bannière cookies avec choix"
+      ],
+      "categorie": "RGPD"
+    },
+    {
+      "id": "C3",
+      "code": "donnees_sensibles",
+      "question": "Les données traitées sont-elles des données sensibles ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C1 == true",
+      "aide": "Données révélant l'origine raciale/ethnique, opinions politiques, convictions religieuses, santé, orientation sexuelle, données génétiques ou biométriques",
+      "exemples": [
+        "Dossier médical électronique",
+        "Appartenance syndicale",
+        "Données biométriques (empreintes)",
+        "Orientation sexuelle"
+      ],
+      "categorie": "RGPD"
+    },
+    {
+      "id": "C4",
+      "code": "contenu_en_ligne",
+      "question": "S'agit-il d'un contenu publié en ligne ?",
+      "type": "boolean",
+      "obligatoire": true,
+      "aide": "Tout contenu diffusé sur Internet : site web, blog, réseau social, plateforme de partage, application mobile",
+      "exemples": [
+        "Article de blog",
+        "Post sur réseau social",
+        "Vidéo sur plateforme",
+        "Photo sur site web"
+      ],
+      "categorie": "Propriété intellectuelle"
+    },
+    {
+      "id": "C5",
+      "code": "droit_auteur",
+      "question": "Le contenu est-il protégé par le droit d'auteur ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C4 == true",
+      "aide": "Œuvre originale portant l'empreinte de la personnalité de l'auteur : texte, photo, musique, vidéo, logiciel, design",
+      "exemples": [
+        "Photo professionnelle",
+        "Musique d'artiste",
+        "Texte d'article de presse",
+        "Code source de logiciel"
+      ],
+      "categorie": "Propriété intellectuelle"
+    },
+    {
+      "id": "C6",
+      "code": "autorisation_auteur",
+      "question": "Avez-vous l'autorisation de l'auteur ou des ayants droit ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C5 == true",
+      "aide": "Autorisation écrite, licence d'utilisation, contrat de cession de droits, ou œuvre sous licence libre (Creative Commons, etc.)",
+      "exemples": [
+        "Contrat de cession de droits signé",
+        "Licence Creative Commons BY",
+        "Autorisation par email",
+        "Œuvre du domaine public"
+      ],
+      "categorie": "Propriété intellectuelle"
+    },
+    {
+      "id": "C7",
+      "code": "commerce_electronique",
+      "question": "S'agit-il d'une activité de commerce électronique ?",
+      "type": "boolean",
+      "obligatoire": true,
+      "aide": "Vente de biens ou prestation de services en ligne avec paiement (e-commerce, marketplace, abonnements SaaS)",
+      "exemples": [
+        "Boutique en ligne",
+        "Vente sur marketplace",
+        "Abonnement logiciel (SaaS)",
+        "Services de consulting en ligne"
+      ],
+      "categorie": "Commerce électronique"
+    },
+    {
+      "id": "C8",
+      "code": "conditions_generales",
+      "question": "Des conditions générales de vente/utilisation sont-elles présentes et accessibles ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C7 == true",
+      "aide": "CGV/CGU visibles, accessibles avant la commande, archivables et imprimables",
+      "exemples": [
+        "Lien CGV dans footer",
+        "Case à cocher avant achat",
+        "PDF téléchargeable",
+        "Page dédiée aux CGV"
+      ],
+      "categorie": "Commerce électronique"
+    },
+    {
+      "id": "C9",
+      "code": "cybersecurite",
+      "question": "Le cas concerne-t-il un incident de cybersécurité ?",
+      "type": "boolean",
+      "obligatoire": true,
+      "aide": "Violation de données, piratage, ransomware, fuite de données, accès non autorisé, défacement de site",
+      "exemples": [
+        "Base de données piratée",
+        "Attaque ransomware",
+        "Fuite de mots de passe",
+        "Intrusion dans le système"
+      ],
+      "categorie": "Cybersécurité"
+    },
+    {
+      "id": "C10",
+      "code": "notification_cnil",
+      "question": "L'incident a-t-il été notifié à la CNIL dans les 72 heures ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C9 == true",
+      "aide": "Notification obligatoire sous 72h si violation de données personnelles (Article 33 RGPD)",
+      "exemples": [
+        "Formulaire CNIL rempli",
+        "Email de notification envoyé",
+        "Déclaration en ligne effectuée"
+      ],
+      "categorie": "Cybersécurité"
+    },
+    {
+      "id": "C11",
+      "code": "contenu_illicite",
+      "question": "Le contenu est-il potentiellement illicite ?",
+      "type": "boolean",
+      "obligatoire": false,
+      "condition": "C4 == true",
+      "aide": "Contenu diffamatoire, injurieux, discriminatoire, incitant à la haine, apologie du terrorisme, contrefaçon",
+      "exemples": [
+        "Propos diffamatoires",
+        "Injures publiques",
+        "Incitation à la haine raciale",
+        "Contenu pédopornographique"
+      ],
+      "categorie": "Responsabilité en ligne"
+    },
+    {
+      "id": "C12",
+      "code": "hebergeur_editeur",
+      "question": "Êtes-vous hébergeur, éditeur, ou les deux ?",
+      "type": "choice",
+      "options": [
+        {
+          "valeur": "hebergeur",
+          "label": "Hébergeur (je stocke du contenu créé par des tiers)",
+          "description": "Ex: forum, plateforme de partage, commentaires"
+        },
+        {
+          "valeur": "editeur",
+          "label": "Éditeur (je crée ou sélectionne le contenu)",
+          "description": "Ex: blog personnel, site corporate, média en ligne"
+        },
+        {
+          "valeur": "mixte",
+          "label": "Mixte (les deux rôles)",
+          "description": "Ex: réseau social avec contenu propre et UGC"
+        }
+      ],
+      "obligatoire": false,
+      "condition": "C4 == true",
+      "aide": "Distinction cruciale pour la responsabilité juridique selon la LCEN",
+      "categorie": "Responsabilité en ligne"
+    }
+  ],
+  "regles": [
+    {
+      "id": "R1",
+      "nom": "RGPD - Traitement sans consentement",
+      "description": "Traitement de données personnelles sans base légale valide",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C1",
+            "valeur": true
+          },
+          {
+            "id": "C2",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D1",
+      "confiance": 0.9,
+      "priorite": 1,
+      "categorie": "RGPD",
+      "active": true
+    },
+    {
+      "id": "R2",
+      "nom": "RGPD - Données sensibles sans base légale",
+      "description": "Traitement de données sensibles sans justification légale appropriée",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C1",
+            "valeur": true
+          },
+          {
+            "id": "C3",
+            "valeur": true
+          },
+          {
+            "id": "C2",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D2",
+      "confiance": 0.95,
+      "priorite": 1,
+      "categorie": "RGPD",
+      "active": true
+    },
+    {
+      "id": "R3",
+      "nom": "Droit d'auteur - Utilisation non autorisée",
+      "description": "Utilisation d'une œuvre protégée sans autorisation = contrefaçon",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C4",
+            "valeur": true
+          },
+          {
+            "id": "C5",
+            "valeur": true
+          },
+          {
+            "id": "C6",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D3",
+      "confiance": 0.85,
+      "priorite": 2,
+      "categorie": "Propriété intellectuelle",
+      "active": true
+    },
+    {
+      "id": "R4",
+      "nom": "Commerce électronique - CGV absentes",
+      "description": "Absence de conditions générales de vente sur un site e-commerce",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C7",
+            "valeur": true
+          },
+          {
+            "id": "C8",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D4",
+      "confiance": 0.9,
+      "priorite": 2,
+      "categorie": "Commerce électronique",
+      "active": true
+    },
+    {
+      "id": "R5",
+      "nom": "Cybersécurité - Violation non notifiée",
+      "description": "Violation de données personnelles non déclarée à la CNIL",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C9",
+            "valeur": true
+          },
+          {
+            "id": "C1",
+            "valeur": true
+          },
+          {
+            "id": "C10",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D5",
+      "confiance": 0.95,
+      "priorite": 1,
+      "categorie": "Cybersécurité",
+      "active": true
+    },
+    {
+      "id": "R6",
+      "nom": "Contenu illicite - Responsabilité éditeur",
+      "description": "Publication de contenu illicite en tant qu'éditeur",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C11",
+            "valeur": true
+          },
+          {
+            "id": "C12",
+            "valeur": "editeur"
+          }
+        ]
+      },
+      "decision": "D6",
+      "confiance": 0.85,
+      "priorite": 1,
+      "categorie": "Responsabilité en ligne",
+      "active": true
+    },
+    {
+      "id": "R7",
+      "nom": "RGPD - Traitement conforme",
+      "description": "Traitement de données personnelles avec consentement valide",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C1",
+            "valeur": true
+          },
+          {
+            "id": "C2",
+            "valeur": true
+          },
+          {
+            "id": "C3",
+            "valeur": false
+          }
+        ]
+      },
+      "decision": "D7",
+      "confiance": 0.8,
+      "priorite": 3,
+      "categorie": "RGPD",
+      "active": true
+    },
+    {
+      "id": "R8",
+      "nom": "Droit d'auteur - Utilisation autorisée",
+      "description": "Utilisation légale d'une œuvre protégée avec autorisation",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C5",
+            "valeur": true
+          },
+          {
+            "id": "C6",
+            "valeur": true
+          }
+        ]
+      },
+      "decision": "D8",
+      "confiance": 0.8,
+      "priorite": 3,
+      "categorie": "Propriété intellectuelle",
+      "active": true
+    },
+    {
+      "id": "R9",
+      "nom": "Commerce électronique - Conforme",
+      "description": "Activité e-commerce avec CGV conformes",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C7",
+            "valeur": true
+          },
+          {
+            "id": "C8",
+            "valeur": true
+          }
+        ]
+      },
+      "decision": "D9",
+      "confiance": 0.75,
+      "priorite": 3,
+      "categorie": "Commerce électronique",
+      "active": true
+    },
+    {
+      "id": "R10",
+      "nom": "Cybersécurité - Incident notifié",
+      "description": "Incident de sécurité correctement déclaré à la CNIL",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C9",
+            "valeur": true
+          },
+          {
+            "id": "C10",
+            "valeur": true
+          }
+        ]
+      },
+      "decision": "D10",
+      "confiance": 0.8,
+      "priorite": 2,
+      "categorie": "Cybersécurité",
+      "active": true
+    },
+    {
+      "id": "R11",
+      "nom": "Contenu illicite - Responsabilité hébergeur",
+      "description": "Contenu illicite sur une plateforme hébergeur",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C11",
+            "valeur": true
+          },
+          {
+            "id": "C12",
+            "valeur": "hebergeur"
+          }
+        ]
+      },
+      "decision": "D11",
+      "confiance": 0.7,
+      "priorite": 2,
+      "categorie": "Responsabilité en ligne",
+      "active": true
+    },
+    {
+      "id": "R12",
+      "nom": "RGPD - Données sensibles avec base légale",
+      "description": "Traitement de données sensibles avec consentement explicite",
+      "conditions": {
+        "operateur": "ET",
+        "criteres": [
+          {
+            "id": "C1",
+            "valeur": true
+          },
+          {
+            "id": "C3",
+            "valeur": true
+          },
+          {
+            "id": "C2",
+            "valeur": true
+          }
+        ]
+      },
+      "decision": "D12",
+      "confiance": 0.7,
+      "priorite": 2,
+      "categorie": "RGPD",
+      "active": true
+    }
+    
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "code": "violation_rgpd_consentement",
+      "titre": "⚠️ Violation potentielle du RGPD",
+      "jugement": "NON_CONFORME",
+      "gravite": "elevee",
+      "couleur": "#dc2626",
+      "icone": "⚠️",
+      "resume": "Le traitement de données personnelles sans consentement valide ou autre base légale est contraire au RGPD.",
+      "explication": "L'article 6 du RGPD impose d'avoir une base légale pour tout traitement de données personnelles. Le consentement est l'une des six bases légales possibles (avec l'exécution d'un contrat, l'obligation légale, la sauvegarde des intérêts vitaux, la mission d'intérêt public, ou l'intérêt légitime). Sans consentement ou autre base légale appropriée, le traitement est illicite et expose le responsable de traitement à des sanctions.",
+      "consequences": [
+        "Sanctions administratives pouvant aller jusqu'à 20 millions d'euros ou 4% du chiffre d'affaires annuel mondial (le montant le plus élevé étant retenu)",
+        "Obligation de cesser immédiatement le traitement des données",
+        "Risque d'action en responsabilité civile par les personnes concernées",
+        "Plainte possible auprès de la CNIL",
+        "Atteinte à la réputation et perte de confiance des utilisateurs"
+      ],
+      "actions_recommandees": [
+        "Cesser immédiatement tout traitement de données non conforme",
+        "Obtenir un consentement valide au sens du RGPD (libre, éclairé, spécifique, univoque)",
+        "Vérifier s'il existe une autre base légale applicable à votre traitement",
+        "Mettre à jour votre politique de confidentialité",
+        "Tenir un registre des activités de traitement",
+        "Consulter un avocat spécialisé en protection des données ou un DPO"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 6 (licéité du traitement)",
+        "RGPD - Article 7 (conditions applicables au consentement)",
+        "RGPD - Article 83 (conditions générales pour imposer des amendes administratives)",
+        "Code pénal français - Article 226-16 (atteinte aux droits de la personne résultant des fichiers)"
+      ],
+      "references_jurisprudence": [
+        "CJUE C-673/17 (Planet49) - Définition du consentement valide",
+        "Délibération CNIL n°SAN-2022-003 - Sanctions pour absence de consentement"
+      ]
+    },
+    {
+      "id": "D2",
+      "code": "violation_donnees_sensibles",
+      "titre": "🚨 Violation grave - Données sensibles",
+      "jugement": "NON_CONFORME",
+      "gravite": "tres_elevee",
+      "couleur": "#991b1b",
+      "icone": "🚨",
+      "resume": "Le traitement de données sensibles sans base légale spécifique est strictement interdit et expose à des sanctions maximales.",
+      "explication": "L'article 9 du RGPD interdit par principe le traitement de catégories particulières de données (données sensibles). Ce principe ne souffre que d'exceptions limitatives énumérées à l'article 9.2. Le consentement explicite (article 9.2.a) n'est qu'une des exceptions et ne suffit généralement pas seul. D'autres garanties sont nécessaires, notamment la réalisation d'une analyse d'impact (AIPD) obligatoire.",
+      "consequences": [
+        "Sanctions maximales du RGPD : jusqu'à 20 millions d'euros ou 4% du CA mondial",
+        "Plaintes collectives possibles auprès de la CNIL et associations",
+        "Obligation de notification aux personnes concernées",
+        "Dommages et intérêts importants aux personnes concernées",
+        "Poursuites pénales possibles (atteinte à la vie privée)",
+        "Atteinte grave et durable à la réputation",
+        "Possibilité de suspension temporaire ou définitive des traitements"
+      ],
+      "actions_recommandees": [
+        "Arrêt immédiat de tout traitement de données sensibles",
+        "Consultation urgente d'un avocat spécialisé en protection des données",
+        "Réaliser une Analyse d'Impact relative à la Protection des Données (AIPD) obligatoire",
+        "Identifier une base légale valide parmi les exceptions de l'article 9.2 RGPD",
+        "Mettre en œuvre des mesures de sécurité renforcées (chiffrement, pseudonymisation)",
+        "Désigner un Délégué à la Protection des Données (DPO) si nécessaire",
+        "Notifier la CNIL en cas de violation de données",
+        "Documenter l'ensemble du traitement et des garanties mises en place"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 9 (traitement portant sur des catégories particulières de données)",
+        "RGPD - Article 35 (analyse d'impact relative à la protection des données)",
+        "RGPD - Article 83 (sanctions)",
+        "Loi Informatique et Libertés - Articles 60 et suivants",
+        "Code pénal - Articles 226-16 à 226-24"
+      ],
+      "references_jurisprudence": [
+        "Délibérations CNIL spécifiques aux données de santé",
+        "Lignes directrices du CEPD sur les données sensibles"
+      ]
+    },
+    {
+      "id": "D3",
+      "code": "contrefacon_droit_auteur",
+      "titre": "⚠️ Contrefaçon - Droit d'auteur",
+      "jugement": "NON_CONFORME",
+      "gravite": "elevee",
+      "couleur": "#dc2626",
+      "icone": "⚠️",
+      "resume": "L'utilisation d'une œuvre protégée sans autorisation constitue une contrefaçon, infraction civile et pénale.",
+      "explication": "Le Code de la propriété intellectuelle (CPI) protège automatiquement les œuvres de l'esprit originales dès leur création, sans formalité. L'auteur dispose de droits patrimoniaux (reproduction, représentation, adaptation) et de droits moraux. Toute utilisation sans autorisation constitue une contrefaçon, sauf exceptions limitatives (courte citation, parodie, copie privée, etc.). La contrefaçon est à la fois un délit civil et pénal.",
+      "consequences": [
+        "Action en contrefaçon devant le tribunal judiciaire",
+        "Dommages et intérêts proportionnels au préjudice subi par l'auteur",
+        "Sanctions pénales : jusqu'à 3 ans de prison et 300 000€ d'amende (Article L335-2 CPI)",
+        "Saisie et destruction des exemplaires contrefaisants",
+        "Publication du jugement aux frais du contrefacteur",
+        "Retrait immédiat du contenu litigieux",
+        "Atteinte à la réputation professionnelle"
+      ],
+      "actions_recommandees": [
+        "Retirer immédiatement tout contenu contrefaisant de vos supports",
+        "Obtenir une autorisation écrite et explicite de l'auteur ou des ayants droit",
+        "Vérifier si une exception au droit d'auteur s'applique (citation courte avec mention de source, etc.)",
+        "Privilégier les œuvres libres de droits, sous licence Creative Commons, ou du domaine public",
+        "Consulter un avocat spécialisé en propriété intellectuelle",
+        "En cas de litige : proposer une transaction amiable",
+        "Pour l'avenir : systématiser la vérification des droits avant toute utilisation"
+      ],
+      "textes_applicables": [
+        "Code de la propriété intellectuelle - Articles L111-1 et suivants (droit d'auteur)",
+        "CPI - Articles L122-4 (droits patrimoniaux) et L335-2 (contrefaçon)",
+        "CPI - Article L122-5 (exceptions : citation, parodie, copie privée)",
+        "Directive européenne 2019/790 sur le droit d'auteur dans le marché unique numérique",
+        "Convention de Berne pour la protection des œuvres littéraires et artistiques"
+      ],
+      "references_jurisprudence": [
+        "Cass. civ. 1ère, 15 mai 2015 (contrefaçon d'images sur Internet)",
+        "TJ Paris, 3ème ch., 13 novembre 2020 (utilisation non autorisée sur réseaux sociaux)"
+      ]
+    },
+    {
+      "id": "D4",
+      "code": "cgv_absentes",
+      "titre": "⚠️ Non-conformité - CGV absentes",
+      "jugement": "NON_CONFORME",
+      "gravite": "moyenne",
+      "couleur": "#ea580c",
+      "icone": "⚠️",
+      "resume": "Les conditions générales de vente (CGV) sont obligatoires pour toute activité de commerce électronique en France.",
+      "explication": "L'article L221-5 du Code de la consommation impose aux professionnels exerçant une activité de commerce électronique de mettre à disposition du consommateur, de manière claire et compréhensible, avant toute commande, les conditions générales de vente. Ces CGV doivent contenir des mentions obligatoires : caractéristiques essentielles du bien/service, prix TTC, frais de livraison, modalités de paiement, délai de livraison, droit de rétractation (14 jours), coordonnées du professionnel, etc. Leur absence constitue une pratique commerciale trompeuse.",
+      "consequences": [
+        "Amende administrative jusqu'à 75 000€ pour une personne physique",
+        "Amende jusqu'à 375 000€ pour une personne morale",
+        "Possibilité de nullité des contrats conclus",
+        "Action de la DGCCRF (Direction Générale de la Concurrence, de la Consommation et de la Répression des Fraudes)",
+        "Demandes de remboursement facilitées pour les consommateurs",
+        "Perte de crédibilité commerciale",
+        "Contentieux consommateurs potentiellement coûteux"
+      ],
+      "actions_recommandees": [
+        "Rédiger immédiatement des CGV conformes au Code de la consommation",
+        "Inclure toutes les mentions obligatoires (prix, délais, droit de rétractation, etc.)",
+        "Rendre les CGV facilement accessibles (lien visible, avant validation commande)",
+        "Permettre leur téléchargement et archivage par le client",
+        "Prévoir une case à cocher pour acceptation des CGV (non pré-cochée)",
+        "Respecter scrupuleusement le droit de rétractation de 14 jours",
+        "Faire valider vos CGV par un professionnel du droit (avocat spécialisé)",
+        "Adapter les CGV à votre activité spécifique"
+      ],
+      "textes_applicables": [
+        "Code de la consommation - Articles L221-1 à L221-28 (contrats conclus à distance)",
+        "Code de la consommation - Article L111-1 (information précontractuelle)",
+        "Code de la consommation - Articles L121-16 à L121-21 (pratiques commerciales trompeuses)",
+        "Code de la consommation - Article L242-4 (sanctions administratives)",
+        "Directive européenne 2011/83/UE relative aux droits des consommateurs"
+      ],
+      "references_jurisprudence": [
+        "Cass. civ. 1ère, 3 juin 2010 (portée des CGV)",
+        "Sanctions DGCCRF pour absence de CGV conformes"
+      ]
+    },
+    {
+      "id": "D5",
+      "code": "violation_non_notifiee",
+      "titre": "🚨 Violation de données non notifiée",
+      "jugement": "NON_CONFORME",
+      "gravite": "tres_elevee",
+      "couleur": "#991b1b",
+      "icone": "🚨",
+      "resume": "La non-notification d'une violation de données personnelles à la CNIL constitue une infraction grave au RGPD.",
+      "explication": "L'article 33 du RGPD impose au responsable de traitement de notifier toute violation de données personnelles à la CNIL dans les 72 heures suivant la découverte de l'incident, lorsque cette violation est susceptible d'engendrer un risque pour les droits et libertés des personnes. L'absence de notification constitue une violation autonome du RGPD, passible de sanctions spécifiques.",
+      "consequences": [
+        "Sanctions pouvant aller jusqu'à 10 millions d'euros ou 2% du chiffre d'affaires annuel mondial",
+        "Aggravation des sanctions en cas de violation initiale des données",
+        "Obligation de notifier également les personnes concernées si risque élevé",
+        "Contrôle et investigation de la CNIL",
+        "Responsabilité accrue en cas de dommages aux personnes",
+        "Atteinte grave à la crédibilité et à la confiance"
+      ],
+      "actions_recommandees": [
+        "URGENT : Notifier immédiatement la CNIL si le délai de 72h n'est pas dépassé",
+        "Documenter précisément la violation (nature, données concernées, nombre de personnes, conséquences)",
+        "Évaluer le niveau de risque pour les personnes concernées",
+        "Notifier les personnes concernées si un risque élevé existe pour leurs droits et libertés",
+        "Mettre en œuvre des mesures correctives immédiates",
+        "Documenter toutes les actions entreprises",
+        "Consulter urgemment un DPO ou avocat spécialisé en protection des données",
+        "Préparer un plan de réponse aux incidents pour l'avenir"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 33 (notification d'une violation de données à caractère personnel à l'autorité de contrôle)",
+        "RGPD - Article 34 (communication d'une violation de données à caractère personnel à la personne concernée)",
+        "RGPD - Article 83.4.a (sanctions pour non-notification)",
+        "Directive NIS (2016/1148) sur la sécurité des réseaux et des systèmes d'information"
+      ],
+      "references_jurisprudence": [
+        "Délibération CNIL n°SAN-2020-012 - Sanction pour notification tardive",
+        "Lignes directrices du CEPD sur la notification des violations"
+      ]
+    },
+    {
+      "id": "D6",
+      "code": "responsabilite_editeur",
+      "titre": "⚠️ Responsabilité éditoriale engagée",
+      "jugement": "NON_CONFORME",
+      "gravite": "elevee",
+      "couleur": "#dc2626",
+      "icone": "⚠️",
+      "resume": "En tant qu'éditeur, vous êtes pleinement responsable du contenu illicite publié.",
+      "explication": "La loi pour la confiance dans l'économie numérique (LCEN) du 21 juin 2004 distingue deux statuts : l'hébergeur et l'éditeur. L'éditeur est celui qui a un rôle actif dans la création, la sélection ou l'organisation du contenu. Il engage sa responsabilité éditoriale et peut être tenu civilement et pénalement responsable du contenu illicite publié, au même titre qu'un éditeur de presse traditionnel.",
+      "consequences": [
+        "Responsabilité civile : dommages et intérêts aux victimes",
+        "Responsabilité pénale selon la nature du contenu (diffamation, injure, incitation à la haine, etc.)",
+        "Sanctions pénales : amendes et peines de prison selon l'infraction",
+        "Obligation de retrait immédiat du contenu",
+        "Droit de réponse à accorder aux victimes",
+        "Publication du jugement aux frais du condamné",
+        "Atteinte durable à la réputation"
+      ],
+      "actions_recommandees": [
+        "Retirer immédiatement le contenu illicite de tous vos supports",
+        "Présenter des excuses publiques si approprié",
+        "Publier un droit de réponse si demandé par la victime",
+        "Mettre en place une charte éditoriale et un processus de modération",
+        "Former les équipes éditoriales aux limites de la liberté d'expression",
+        "Consulter un avocat spécialisé en droit de la presse et/ou droit d'Internet",
+        "Envisager une transaction amiable avec la ou les victimes",
+        "Souscrire une assurance responsabilité civile professionnelle"
+      ],
+      "textes_applicables": [
+        "LCEN - Article 6.III (responsabilité des éditeurs)",
+        "Loi du 29 juillet 1881 sur la liberté de la presse (diffamation, injure)",
+        "Code pénal - Articles 226-1 à 226-7 (atteinte à la vie privée)",
+        "Code pénal - Articles R621-1 et R625-7 (provocation, injure)",
+        "Loi du 1er juillet 1972 relative à la lutte contre le racisme"
+      ],
+      "references_jurisprudence": [
+        "Cass. crim., 30 janvier 2007 (responsabilité du directeur de publication)",
+        "CA Paris, 14 janvier 2015 (distinction éditeur/hébergeur)"
+      ]
+    },
+    {
+      "id": "D7",
+      "code": "rgpd_conforme",
+      "titre": "✅ Traitement de données conforme",
+      "jugement": "CONFORME",
+      "gravite": "nulle",
+      "couleur": "#16a34a",
+      "icone": "✅",
+      "resume": "Le traitement de données personnelles semble conforme au RGPD dans les grandes lignes.",
+      "explication": "Vous disposez d'une base légale valide (consentement) pour traiter des données personnelles non sensibles. C'est un bon point de départ. Cependant, la conformité au RGPD ne se limite pas au consentement : elle implique le respect de tous les principes (licéité, transparence, minimisation, limitation de la conservation, sécurité, etc.) et des droits des personnes (accès, rectification, effacement, portabilité, opposition).",
+      "consequences": [],
+      "actions_recommandees": [
+        "Tenir un registre des activités de traitement (obligatoire pour la plupart des organismes)",
+        "Rédiger et publier une politique de confidentialité claire et accessible",
+        "Respecter tous les droits des personnes concernées (accès, rectification, effacement, portabilité, opposition)",
+        "Assurer la sécurité des données (chiffrement, contrôle d'accès, sauvegardes)",
+        "Limiter la durée de conservation des données au strict nécessaire",
+        "Ne collecter que les données nécessaires (principe de minimisation)",
+        "Prévoir des clauses RGPD dans les contrats avec vos sous-traitants",
+        "Rester vigilant sur l'évolution de la réglementation et de la jurisprudence",
+        "Envisager la désignation d'un DPO selon votre activité"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 5 (principes relatifs au traitement des données)",
+        "RGPD - Article 6 (licéité du traitement)",
+        "RGPD - Articles 12 à 22 (droits des personnes)",
+        "RGPD - Article 30 (registre des activités de traitement)",
+        "Loi Informatique et Libertés modifiée"
+      ],
+      "references_jurisprudence": []
+    },
+    {
+      "id": "D8",
+      "code": "droit_auteur_conforme",
+      "titre": "✅ Utilisation conforme - Droit d'auteur",
+      "jugement": "CONFORME",
+      "gravite": "nulle",
+      "couleur": "#16a34a",
+      "icone": "✅",
+      "resume": "L'utilisation du contenu protégé est autorisée et conforme au droit d'auteur.",
+      "explication": "Vous disposez de l'autorisation nécessaire pour utiliser l'œuvre protégée. Il peut s'agir d'une autorisation expresse de l'auteur, d'une licence d'utilisation, d'une œuvre sous licence libre (Creative Commons), ou d'une œuvre du domaine public. Veillez à respecter scrupuleusement les conditions et limites de l'autorisation obtenue.",
+      "consequences": [],
+      "actions_recommandees": [
+        "Conserver précieusement l'autorisation écrite ou la licence d'utilisation",
+        "Respecter strictement les conditions d'utilisation (territoire, durée, support, finalité)",
+        "Mentionner l'auteur si cela est requis par l'autorisation ou la licence",
+        "Vérifier la durée de validité de l'autorisation et la renouveler si nécessaire",
+        "En cas de licence Creative Commons : respecter les conditions (BY, SA, NC, ND)",
+        "Ne pas céder ou sous-licencier les droits sans autorisation",
+        "Archiver les preuves d'autorisation en cas de contestation future"
+      ],
+      "textes_applicables": [
+        "Code de la propriété intellectuelle - Articles L111-1 et suivants",
+        "CPI - Article L122-1 (droit de reproduction et de représentation)",
+        "CPI - Article L131-3 (contrats de cession de droits)"
+      ],
+      "references_jurisprudence": []
+    },
+    {
+      "id": "D9",
+      "code": "commerce_electronique_conforme",
+      "titre": "✅ Commerce électronique conforme",
+      "jugement": "CONFORME",
+      "gravite": "nulle",
+      "couleur": "#16a34a",
+      "icone": "✅",
+      "resume": "Votre activité de commerce électronique dispose des CGV requises, c'est une bonne base.",
+      "explication": "La présence de conditions générales de vente accessibles et conformes est un prérequis essentiel pour toute activité de commerce électronique. Cependant, la conformité ne s'arrête pas là : elle implique également le respect de nombreuses autres obligations légales (information précontractuelle, droit de rétractation, délais de livraison, service client, etc.).",
+      "consequences": [],
+      "actions_recommandees": [
+        "Vérifier que toutes les mentions obligatoires sont bien présentes dans les CGV",
+        "Mettre à jour régulièrement les CGV en fonction de l'évolution de votre activité",
+        "Respecter scrupuleusement le droit de rétractation de 14 jours (sauf exceptions)",
+        "Informer clairement sur les frais de livraison et les délais",
+        "Assurer un service client accessible et réactif",
+        "Archiver les CGV applicables à chaque commande",
+        "Informer les clients de toute modification des CGV",
+        "Rédiger également des mentions légales complètes",
+        "Prévoir une politique de protection des données conforme au RGPD",
+        "Mettre en place un système de facturation conforme"
+      ],
+      "textes_applicables": [
+        "Code de la consommation - Articles L221-1 à L221-28",
+        "Code de commerce - Articles L441-1 et suivants",
+        "LCEN - Articles 19 et suivants (mentions légales)"
+      ],
+      "references_jurisprudence": []
+    },
+    {
+      "id": "D10",
+      "code": "incident_notifie",
+      "titre": "⚠️ Incident de cybersécurité notifié",
+      "jugement": "PARTIELLEMENT_CONFORME",
+      "gravite": "faible",
+      "couleur": "#f59e0b",
+      "icone": "⚠️",
+      "resume": "L'incident a été notifié à la CNIL, c'est une bonne première étape, mais d'autres actions sont nécessaires.",
+      "explication": "La notification à la CNIL dans les 72 heures est une obligation légale essentielle. Cependant, selon la gravité de l'incident et le niveau de risque pour les personnes concernées, vous devez également notifier les personnes elles-mêmes, documenter l'incident, mettre en œuvre des mesures correctives et renforcer votre sécurité pour éviter de futurs incidents.",
+      "consequences": [],
+      "actions_recommandees": [
+        "Évaluer précisément le niveau de risque pour les droits et libertés des personnes concernées",
+        "Si risque élevé : notifier immédiatement et individuellement les personnes concernées",
+        "Documenter l'incident de manière détaillée (registre des violations)",
+        "Mettre en œuvre toutes les mesures techniques et organisationnelles pour limiter les conséquences",
+        "Identifier la cause de l'incident et la corriger",
+        "Renforcer globalement la sécurité de votre système d'information",
+        "Prévoir un audit de sécurité par un expert externe",
+        "Former les équipes à la cybersécurité et à la gestion de crise",
+        "Mettre en place un plan de réponse aux incidents (PRI)",
+        "Envisager une assurance cyber-risques"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 33 (notification à l'autorité)",
+        "RGPD - Article 34 (communication aux personnes concernées)",
+        "Directive NIS (2016/1148) sur la sécurité des réseaux",
+        "Loi de Programmation Militaire (LPM) - Articles relatifs à la cybersécurité"
+      ],
+      "references_jurisprudence": [
+        "Lignes directrices du CEPD sur la notification des violations",
+        "Recommandations ANSSI sur la gestion des incidents"
+      ]
+    },
+    {
+      "id": "D11",
+      "code": "responsabilite_hebergeur",
+      "titre": "⚠️ Régime de l'hébergeur applicable",
+      "jugement": "PARTIELLEMENT_CONFORME",
+      "gravite": "moyenne",
+      "couleur": "#f59e0b",
+      "icone": "⚠️",
+      "resume": "En tant qu'hébergeur, votre responsabilité est limitée mais vous devez respecter certaines obligations.",
+      "explication": "L'article 6.I.2 de la LCEN accorde aux hébergeurs un régime de responsabilité allégée : ils ne sont responsables que s'ils ne retirent pas promptement un contenu manifestement illicite après en avoir eu connaissance effective. Cette connaissance peut provenir d'une notification par un tiers ou d'une autorité. Attention : pour bénéficier de ce régime, vous ne devez pas exercer de contrôle éditorial sur les contenus.",
+      "consequences": [
+        "Obligation de retrait prompt du contenu manifestement illicite après notification",
+        "Mise en place obligatoire d'un dispositif de signalement facilement accessible",
+        "Conservation des données d'identification des contributeurs pendant 1 an",
+        "Responsabilité engagée en cas de non-retrait après notification valide",
+        "Perte du statut d'hébergeur si contrôle éditorial avéré"
+      ],
+      "actions_recommandees": [
+        "Mettre en place un système de signalement conforme et facilement accessible",
+        "Définir une procédure interne de traitement des signalements",
+        "Retirer promptement (quelques heures à quelques jours) tout contenu manifestement illicite notifié",
+        "Conserver les données d'identification des contributeurs pendant 1 an minimum",
+        "Ne pas exercer de contrôle éditorial a priori pour conserver le statut d'hébergeur",
+        "Former les équipes aux obligations légales de l'hébergeur",
+        "Documenter tous les signalements et les actions entreprises",
+        "Se conformer également au règlement DSA (Digital Services Act) européen"
+      ],
+      "textes_applicables": [
+        "LCEN - Article 6.I.2 (responsabilité des hébergeurs)",
+        "LCEN - Article 6.I.5 (conservation des données)",
+        "Règlement DSA (Digital Services Act) - Règlement UE 2022/2065",
+        "Directive e-commerce 2000/31/CE"
+      ],
+      "references_jurisprudence": [
+        "CJUE C-236/08 à C-238/08 (Google/Louis Vuitton) - Critères de l'hébergeur",
+        "Cass. civ. 1ère, 17 février 2011 (Dailymotion) - Rôle actif"
+      ]
+    },
+    {
+      "id": "D12",
+      "code": "donnees_sensibles_base_legale",
+      "titre": "⚠️ Données sensibles avec base légale",
+      "jugement": "PARTIELLEMENT_CONFORME",
+      "gravite": "moyenne",
+      "couleur": "#f59e0b",
+      "icone": "⚠️",
+      "resume": "Le traitement de données sensibles est possible avec consentement explicite, mais des garanties supplémentaires sont indispensables.",
+      "explication": "L'article 9 du RGPD interdit par principe le traitement de données sensibles, mais prévoit des exceptions limitatives. Le consentement explicite de la personne (article 9.2.a) en est une, mais il doit être complété par des garanties appropriées et, dans la plupart des cas, par une analyse d'impact (AIPD). La simple obtention du consentement ne suffit pas : le traitement doit être strictement nécessaire, proportionné, et entouré de mesures de sécurité renforcées.",
+      "consequences": [],
+      "actions_recommandees": [
+        "Réaliser obligatoirement une Analyse d'Impact relative à la Protection des Données (AIPD)",
+        "Justifier la nécessité absolue du traitement de données sensibles",
+        "Obtenir un consentement explicite (case à cocher dédiée, non pré-cochée)",
+        "Mettre en œuvre des mesures de sécurité renforcées (chiffrement fort, pseudonymisation, cloisonnement)",
+        "Limiter très strictement la finalité, la durée de conservation et les personnes ayant accès",
+        "Désigner un Délégué à la Protection des Données (DPO) - souvent obligatoire",
+        "Consulter la CNIL en cas de risque élevé résiduel après l'AIPD",
+        "Documenter exhaustivement le traitement et les garanties mises en place",
+        "Former spécifiquement les personnes accédant à ces données",
+        "Prévoir des audits réguliers de conformité"
+      ],
+      "textes_applicables": [
+        "RGPD - Article 9 (traitement de données sensibles)",
+        "RGPD - Article 35 (analyse d'impact - AIPD obligatoire)",
+        "RGPD - Article 37 (désignation du DPO)",
+        "Délibérations et référentiels de la CNIL selon les secteurs",
+        "Lignes directrices du CEPD sur l'AIPD et les données sensibles"
+      ],
+      "references_jurisprudence": [
+        "Délibérations CNIL sectorielles (santé, RH, etc.)",
+        "Lignes directrices du CEPD sur le consentement"
+      ]
+    }
+  ],
+  "cas_incomplets": {
+    "message_defaut": "⚠️ Les informations fournies sont insuffisantes pour établir un diagnostic juridique précis. Le système a besoin de davantage de réponses pour analyser votre situation correctement. Veuillez répondre à davantage de questions ou consulter directement un professionnel du droit.",
+    "seuil_confiance_minimum": 0.5,
+    "gestion": "afficher_decisions_partielles",
+    "message_partiel": "Le système a identifié des éléments juridiques pertinents, mais l'analyse reste partielle. Les résultats ci-dessous sont indicatifs."
+  },
+  "ressources_complementaires": {
+    "organismes": [
+      {
+        "nom": "CNIL",
+        "nom_complet": "Commission Nationale de l'Informatique et des Libertés",
+        "description": "Autorité de contrôle française en matière de protection des données personnelles",
+        "domaines": [
+          "protection des données",
+          "RGPD",
+          "cybersécurité"
+        ],
+        "site": "cnil.fr",
+        "telephone": "01 53 73 22 22"
+      },
+      {
+        "nom": "INPI",
+        "nom_complet": "Institut National de la Propriété Industrielle",
+        "description": "Organisme public gérant les titres de propriété industrielle",
+        "domaines": [
+          "propriété intellectuelle",
+          "brevets",
+          "marques",
+          "dessins et modèles"
+        ],
+        "site": "inpi.fr",
+        "telephone": "0820 213 213"
+      },
+      {
+        "nom": "DGCCRF",
+        "nom_complet": "Direction Générale de la Concurrence, de la Consommation et de la Répression des Fraudes",
+        "description": "Autorité de contrôle en matière de commerce et de protection des consommateurs",
+        "domaines": [
+          "commerce électronique",
+          "protection des consommateurs",
+          "pratiques commerciales"
+        ],
+        "site": "economie.gouv.fr/dgccrf",
+        "telephone": "3939"
+      },
+      {
+        "nom": "ANSSI",
+        "nom_complet": "Agence Nationale de la Sécurité des Systèmes d'Information",
+        "description": "Autorité nationale en matière de cybersécurité",
+        "domaines": [
+          "cybersécurité",
+          "incidents de sécurité",
+          "recommandations techniques"
+        ],
+        "site": "ssi.gouv.fr"
+      }
+    ],
+    "textes_de_reference": [
+      {
+        "nom": "RGPD",
+        "nom_complet": "Règlement Général sur la Protection des Données",
+        "reference": "Règlement UE 2016/679",
+        "domaine": "Protection des données personnelles"
+      },
+      {
+        "nom": "Code de la propriété intellectuelle (CPI)",
+        "reference": "Code de la propriété intellectuelle",
+        "domaine": "Droit d'auteur, brevets, marques"
+      },
+      {
+        "nom": "Code de la consommation",
+        "reference": "Code de la consommation",
+        "domaine": "Commerce électronique, protection des consommateurs"
+      },
+      {
+        "nom": "LCEN",
+        "nom_complet": "Loi pour la Confiance dans l'Économie Numérique",
+        "reference": "Loi n°2004-575 du 21 juin 2004",
+        "domaine": "Responsabilité des acteurs Internet, commerce électronique"
+      },
+      {
+        "nom": "Loi Informatique et Libertés",
+        "reference": "Loi n°78-17 du 6 janvier 1978 modifiée",
+        "domaine": "Protection des données personnelles (complète le RGPD)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+# Dépendances pour le Système Expert - Droit du Numérique
+
+# Pour la compilation en exécutable
+pyinstaller>=5.0.0
+
+# Pour la création d'icône (optionnel)
+Pillow>=9.0.0
+
+# Note : Ce projet utilise principalement la bibliothèque standard Python
+# Aucune autre dépendance n'est nécessaire pour l'exécution
