@@ -121,14 +121,8 @@ begin
     end;
   end;
   
-  // Vérification de l'espace disque (100 MB minimum)
-  if GetSpaceOnDisk(ExpandConstant('{autopf}'), False, nil, nil, nil) < 104857600 then
-  begin
-    MsgBox('Espace disque insuffisant.' + #13#10 +
-           'Au moins 100 MB d''espace libre sont nécessaires.', 
-           mbError, MB_OK);
-    Result := False;
-  end;
+  // Note : Vérification de l'espace disque désactivée car peut causer des erreurs
+  // La vérification se fera automatiquement par Windows lors de l'installation
 end;
 
 // Actions après l'installation
